@@ -2,8 +2,8 @@
 
 <% @tasks.each do |task| %>
   <p>タスク名：<%= task.task_title %></p>
-  <p>タスク内容：<%= task.task_content %></p>
   <p><%= link_to '詳細', task_path(task) %></p>
+  <p><%= link_to '編集', edit_task_path(task) %></p>
 <% end %>
 
 
