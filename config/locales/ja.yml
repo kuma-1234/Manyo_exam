@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+      user:
+    attributes:
+      task:
+        task_title: タスク名
+        task_content: タスク内容
+        deadline: 締切
+        status: ステータス
+        priority: 優先度
+      user:
+        name: ユーザー名
+        email: メールアドレス
+  errors:
+    format: "%{attribute}%{message}"
+    messages: 
+      blank: を入力してください
+      too_short: は6文字以上で入力してください
+      invalid: 無効です
+      taken: はすでに使用されています 

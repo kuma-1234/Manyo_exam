@@ -34,3 +34,15 @@
 | Labeling  | id |  intege  |
 |           | label_id |references|
 |           | task_id  |references|
+
+# Herokuデプロイ方法
+① ``heroku create``のコマンドを入力して、新しいアプリケーションを作成する。
+
+②Heroku buildpackを追加する
+```
+% heroku buildpacks:set heroku/ruby
+% heroku buildpacks:add --index 1 heroku/nodejs
+```
+をターミナルに入力して、buildpackを追加する。
+
+③ ``git push heroku ブランチ名:master``でherokuにデプロイする。

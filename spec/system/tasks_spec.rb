@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
+  let!(:task) {FactoryBot.create(:task)}
+
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
@@ -15,11 +17,20 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '一覧表示機能' do
+    before do
+      visit tasks_path
+    end
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
-        task = FactoryBot.create(:task, task_title: 'task')
-        visit tasks_path
-        expect(page).to have_content 'task'
+        #task = FactoryBot.create(:task, task_title: 'task')
+        expect(page).to have_content task.task_title
+      end
+    end
+    context 'タスクが作成日時の降順に並んでいる場合' do
+      it 'タスクが一番上に表示される' do
+        #task = FactoryBot.create(:task)
+        task_list = all('.task_table')[0]
+        expect(task_list).to have_content task.task_title
       end
     end
   end
@@ -27,7 +38,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
-        task = FactoryBot.create(:task)
+        #task = FactoryBot.create(:task)
         visit task_path(task)
         expect(page).to have_content task.task_title
         expect(page).to have_content task.task_content
