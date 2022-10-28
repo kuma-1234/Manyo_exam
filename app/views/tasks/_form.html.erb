@@ -23,9 +23,14 @@
     <%= f.text_area :task_content %>
   </div>
 
+  <div class="task_date">
+    <%= f.label :deadline %>
+    <%= f.date_select :deadline,:date_separator => " - " %>
+  </div>
+
   <br>
   
-  <%= f.submit "作成する" %>
+  <%= f.submit "作成する" %> 
 <% end %>
 
 
