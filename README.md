@@ -34,3 +34,25 @@
 | Labeling  | id |  intege  |
 |           | label_id |references|
 |           | task_id  |references|
+
+# Herokuデプロイ方法
+① ``heroku create``のコマンドを入力して、新しいアプリケーションを作成する。
+
+②Gemfileに
+```
+gem 'net-smtp'
+gem 'net-imap'
+gem 'net-pop'
+```
+を追加する。
+
+③コミットする。
+
+④Heroku buildpackを追加する
+```
+% heroku buildpacks:set heroku/ruby
+% heroku buildpacks:add --index 1 heroku/nodejs
+```
+をターミナルに入力して、buildpackを追加する。
+
+④ ``git push heroku ブランチ名:master``でherokuにデプロイする。
