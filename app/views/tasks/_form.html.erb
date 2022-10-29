@@ -11,21 +11,26 @@
     </div>
   <% end %>
 
-  <div class="task_title">
+  <div class="input_form">
     <%= f.label :task_title %>
     <%= f.text_field :task_title %>
   </div>
 
 <br>
 
-  <div class="task_content">
+  <div class="input_form">
     <%= f.label :task_content %>
     <%= f.text_area :task_content %>
   </div>
 
-  <div class="task_date">
+  <div class="input_form">
     <%= f.label :deadline %>
     <%= f.date_select :deadline,:date_separator => " - " %>
+  </div>
+
+  <div calss="input_form">
+    <%= f.label :status %>
+    <%= f.select :status, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]],include_blank: "選択して下さい"%>
   </div>
 
   <br>
