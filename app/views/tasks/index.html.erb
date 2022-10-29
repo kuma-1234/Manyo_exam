@@ -3,15 +3,17 @@
 <p><%= notice %></p>
 
 <table>
-  <tr>
-    <th>タスク名</th>
-    <th>終了期限</th>
-    <th><p></p></th>
-  </tr>
+  <thead>
+    <tr>
+      <th>タスク名</th>
+      <th>終了期限</th>
+      <th><p></p></th>
+    </tr>
+  </thead>
 
-  <div class="task_table">
+  <tbody>
     <% @tasks.each do |task| %>
-      <tr>
+      <tr class="task_table">
         <td><%= task.task_title %></td>
         <td><%= task.deadline %></td>
         <td>
@@ -21,7 +23,7 @@
         </td>
       </tr>
     <% end %>
-  </div>
+  </tbody>
 </table>
 
 
