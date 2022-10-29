@@ -2,8 +2,16 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all.order(created_at: :desc) 
+    #終了期限で降順にする場合↓
     @tasks = @tasks.reorder(deadline: :asc) if params[:sort_expired]
+    #タイトルのあいまい検索
+    @search_params = task_search_params
+    @tasks = Task.search(@search_params) if params[:search].present?
+
   end
+    # @tasks = Task.search(params[:status])
+    # @status = params[:status]
+    # render :index
 
   def new
     @task = Task.new
@@ -46,6 +54,10 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:task_title, :task_content, :created_at, :deadline, :status)
+  end
+
+  def task_search_params
+    params.fetch(:search, {}).permit(:task_title)
   end
 
 end

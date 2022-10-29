@@ -2,6 +2,15 @@
 
 <p><%= notice %></p>
 
+<div class="serch-form">
+  <%= form_with(scope: :search, url:tasks_path, method: :get, local: true) do |f| %>
+    <%= f.label :task_title %>
+    <%= f.text_field :task_title, value: @search_params[:task_title] %>
+    <%# <%= f.text_field :status, value: @status %>
+    <%= f.submit "検索"%> 
+  <% end %>
+</div>
+
 <table>
   <thead>
     <tr>
