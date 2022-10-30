@@ -18,6 +18,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rexml'
   gem 'rspec-rails'
+  gem 'pry-rails'
 end
 
 group :development do

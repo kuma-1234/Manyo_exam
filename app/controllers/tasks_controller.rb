@@ -7,6 +7,8 @@ class TasksController < ApplicationController
     #タイトルのあいまい検索
     @search_params = task_search_params
     @tasks = Task.search(@search_params) if params[:search].present?
+    #ステータス検索
+    #@tasks = Task.search(@search_params) 
 
   end
     # @tasks = Task.search(params[:status])
@@ -20,6 +22,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
+      binding.pry
       redirect_to task_path(@task), notice: "タスクを作成しました！"
     else
       render :new
@@ -57,7 +60,7 @@ class TasksController < ApplicationController
   end
 
   def task_search_params
-    params.fetch(:search, {}).permit(:task_title)
+    params.fetch(:search, {}).permit(:task_title, :status)
   end
 
 end

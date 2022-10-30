@@ -58,3 +58,4 @@ ja:
       x_days: "%{count}日"
       x_months: "%{count}ヶ月"
       x_years: "%{count}年"
+  

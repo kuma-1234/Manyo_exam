@@ -6,7 +6,8 @@
   <%= form_with(scope: :search, url:tasks_path, method: :get, local: true) do |f| %>
     <%= f.label :task_title %>
     <%= f.text_field :task_title, value: @search_params[:task_title] %>
-    <%# <%= f.text_field :status, value: @status %>
+    <%= f.label :status %>
+    <%= f.select :status, Task.statuses.keys.to_a , include_blank:'選択してください' ,value: @search_params[:status] %>
     <%= f.submit "検索"%> 
   <% end %>
 </div>
