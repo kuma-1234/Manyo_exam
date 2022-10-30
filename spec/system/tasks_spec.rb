@@ -67,9 +67,19 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context 'ステータスで検索をした場合' do
       it "ステータスに完全一致したタスクが絞り込まれる" do
-        select '完了', from: 'search[status]'
+        select '未着手', from: 'search[status]'
         click_on '検索'
-        expect(page).to have_content '完了'
+        expect(page).to have_content '未着手'
+      end
+    end
+
+    context 'タイトルのあいまい検索＋ステータス検索をした場合' do
+      it '検索キーワードを含み、かつステータスに完全一致するタスクが絞り込まれる' do
+        fill_in 'search_task_title', with: 'test' 
+        select '着手中', from: 'search[status]'
+        click_on '検索'
+        expect(page).to have_content 'test'
+        expect(page).to have_content '着手中'
       end
     end
   end
