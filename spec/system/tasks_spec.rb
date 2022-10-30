@@ -34,8 +34,6 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
     context '終了期限のソートを押した場合' do
       it '終了期限の降順にタスクが表示される' do
-        # task1 = FactoryBot.create(:task, task_title: 'task1', deadline: '2022-12-24' )
-        # task2 = FactoryBot.create(:task, task_title: 'task2', deadline: '2022-12-25' )
         click_on '終了期限でソートする'
         task_list = all('.task_table')
         expect(task_list[0]).to have_content 'test'
@@ -50,6 +48,28 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit task_path(task)
         expect(page).to have_content task.task_title
         expect(page).to have_content task.task_content
+      end
+    end
+  end
+
+  describe '検索機能' do
+    before do
+      visit tasks_path
+    end
+
+    context 'タイトルであいまい検索をした場合' do
+      it "検索ワードを含むタスクで絞り込まれる" do
+        fill_in 'search_task_title', with: 't'
+        click_on '検索'
+        expect(page).to have_content 't'
+      end
+    end
+
+    context 'ステータスで検索をした場合' do
+      it "ステータスに完全一致したタスクが絞り込まれる" do
+        select '完了', from: 'search[status]'
+        click_on '検索'
+        expect(page).to have_content '完了'
       end
     end
   end
