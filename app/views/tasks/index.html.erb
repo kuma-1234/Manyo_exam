@@ -18,6 +18,7 @@
       <th>タスク名</th>
       <th>終了期限</th>
       <th>ステータス</th>
+      <th>優先順位</th>
       <th></th>
     </tr>
   </thead>
@@ -28,6 +29,7 @@
         <td><%= task.task_title %></td>
         <td><%= task.deadline %></td>
         <td><%= task.status %></td>
+        <td><%= task.priority %></td>
         <td>
           <%= link_to '詳細', task_path(task) %>
           <%= link_to '編集', edit_task_path(task) %>
@@ -42,3 +44,4 @@
 <p><%= link_to 'タスクの新規投稿', new_task_path %></p>
 
 <p><%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %></p>
+<p><%= link_to "優先順位でソートする", tasks_path(sort_priority: "true") %></p>
