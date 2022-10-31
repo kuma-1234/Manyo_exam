@@ -11,31 +11,35 @@
     </div>
   <% end %>
 
-  <div class="input_form">
-    <%= f.label :task_title %>
-    <%= f.text_field :task_title %>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><%= f.label :task_title %></span>
+      <%= f.text_field :task_title %>
+    </div>
   </div>
-
-<br>
-
-  <div class="input_form">
-    <%= f.label :task_content %>
-    <%= f.text_area :task_content %>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><%= f.label :task_content %></span>
+      <%= f.text_area :task_content %>
+    </div>
   </div>
-
-  <div class="input_form">
-    <%= f.label :deadline %>
-    <%= f.date_select :deadline,:date_separator => " - " %>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><%= f.label :deadline %></span>
+      <%= f.date_select :deadline,:date_separator => " - " %>
+    </div>
   </div>
-
-  <div calss="input_form">
-    <%= f.label :status %>
-    <%= f.select :status, Task.statuses.keys.to_a, include_blank:'選択してください' %>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><%= f.label :status %></span>
+      <%= f.select :status, Task.statuses.keys.to_a, include_blank:'選択してください'%>
+    </div>
   </div>
-
-  <div class="input_form">
-    <%= f.label :priority %>
-    <%= f.select :priority, Task.priorities.keys.to_a, include_blank:'選択してください' %>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><%= f.label :priority %></span>
+      <%= f.select :priority, Task.priorities.keys.to_a, include_blank:'選択してください'%>
+    </div>
   </div>
 
   <br>
