@@ -20,3 +20,47 @@ ja:
       too_short: は6文字以上で入力してください
       invalid: 無効です
       taken: はすでに使用されています 
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      long: "%Y年%m月%d日(%a)"
+      short: "%m/%d"
+    month_names:
+    - 
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours: 約%{count}時間
+      about_x_months: 約%{count}ヶ月
+      about_x_years: 約%{count}年
+      almost_x_years: "%{count}年弱"
+      half_a_minute: 30秒前後
+      less_than_x_seconds: "%{count}秒未満"
+      less_than_x_minutes: "%{count}分未満"
+      over_x_years: "%{count}年以上"
+      x_seconds: "%{count}秒"
+      x_minutes: "%{count}分"
+      x_days: "%{count}日"
+      x_months: "%{count}ヶ月"
+      x_years: "%{count}年"
+  views:
+    pagination:
+      first: "≪"
+      previous: "<"
+      next: ">"
+      last: "≫"

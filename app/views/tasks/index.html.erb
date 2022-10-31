@@ -1,17 +1,48 @@
-<h1>タスクの一覧</h1>
+<h1 class="display-4">タスクの一覧</h1>
 
 <p><%= notice %></p>
 
-<div class="task_table">
-  <% @tasks.each do |task| %>
-  <p>タスク名：<%= task.task_title %></p>
-  <p>
-    <%= link_to '詳細', task_path(task) %>
-    <%= link_to '編集', edit_task_path(task) %>
-    <%= link_to '削除', task_path(task), method: :delete, data:{confirm: "本当に削除して良いですか？"} %>
-  </p>
+<div class="serch-form">
+  <%= form_with(scope: :search, url:tasks_path, method: :get, local: true) do |f| %>
+    <%= f.label :task_title %>
+    <%= f.text_field :task_title, value: @search_params[:task_title] %>
+    <%= f.label :status %>
+    <%= f.select :status, Task.statuses.keys.to_a , include_blank:'選択してください' ,value: @search_params[:status] %>
+    <%= f.submit "検索"%> 
   <% end %>
 </div>
 
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">タスク名</th>
+      <th scope="col">終了期限</th>
+      <th scope="col">ステータス</th>
+      <th scope="col">優先順位</th>
+      <th></th>
+    </tr>
+  </thead>
 
-<%= link_to 'タスクの新規投稿', new_task_path %>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr class="task_table">
+        <td><%= task.task_title %></td>
+        <td><%= task.deadline %></td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+        <td>
+          <%= link_to '詳細', task_path(task), class:"btn btn-outline-primary" %>
+          <%= link_to '編集', edit_task_path(task), class:"btn btn-outline-success" %>
+          <%= link_to '削除', task_path(task), method: :delete, data:{confirm: "本当に削除して良いですか？"}, class: "btn btn-outline-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @tasks %>
+
+<p><%= link_to 'タスクの新規投稿', new_task_path %></p>
+
+<p><%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %></p>
+<p><%= link_to "優先順位でソートする", tasks_path(sort_priority: "true") %></p>
