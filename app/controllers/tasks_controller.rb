@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
   def index
-    @tasks = Task.all.order(created_at: :desc) 
+    @tasks = Task.all.order(created_at: :desc).page(params[:page])
     #終了期限で降順にする場合↓
     @tasks = @tasks.reorder(deadline: :asc) if params[:sort_expired]
     #優先順位で降順にする場合↓
