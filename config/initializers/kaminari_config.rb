@@ -5,8 +5,8 @@ Kaminari.configure do |config|
   # config.max_per_page = nil
   #config.window = 4
   #config.outer_window = 1
-  # config.left = 3
-  # config.right = 3
+  config.left = 3
+  config.right = 3
   # config.page_method_name = :page
   # config.param_name = :page
   # config.max_pages = nil

@@ -35,6 +35,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '終了期限のソートを押した場合' do
       it '終了期限の降順にタスクが表示される' do
         click_on '終了期限でソートする'
+        sleep 0.03
         task_list = all('.task_table')
         expect(task_list[0]).to have_content 'test'
         expect(task_list[1]).to have_content 'test2'
@@ -43,9 +44,10 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '優先順位のソートを押した場合' do
       it '優先順位の高い順にタスクが表示される'do 
         click_on '優先順位でソートする' 
-        task_list = all('.task_table')
-        expect(task_list[0]).to have_content 'test'
-        expect(task_list[0]).not_to have_content 'test2'
+        sleep 0.03
+        task_list2 = all('.task_table')
+        expect(task_list2[0]).to have_content 'test'
+        expect(task_list2[1]).to have_content 'test2'
       end
     end 
   end

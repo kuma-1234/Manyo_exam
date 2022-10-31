@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
   def index
-    @tasks = Task.all.order(created_at: :desc).page(params[:page])
+    @tasks = Task.all.order(created_at: :desc)
     #終了期限で降順にする場合↓
     @tasks = @tasks.reorder(deadline: :asc) if params[:sort_expired]
     #優先順位で降順にする場合↓
@@ -9,6 +9,8 @@ class TasksController < ApplicationController
     #タイトルのあいまい検索,ステータス検索
     @search_params = task_search_params
     @tasks = Task.search(@search_params) if params[:search].present?
+    #kaminari gem
+    @tasks = @tasks.page(params[:page])
   end
 
   def new
@@ -55,7 +57,7 @@ class TasksController < ApplicationController
   end
 
   def task_search_params
-    params.fetch(:search, {}).permit(:task_title, :status)
+    params.fetch(:search, {}).permit(:task_title, :status,)
   end
 
 end
