@@ -38,7 +38,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.delete
+    @user.destroy
     redirect_to admin_users_path, notice:'ユーザー情報に関するデータを全て削除しました'
   end
 
