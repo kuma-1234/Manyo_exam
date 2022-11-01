@@ -1,6 +1,31 @@
-<h1>管理画面のユーザー一覧</h1>
+<h1>【管理画面】ユーザーの一覧</h1>
 
-<% @users.each do |user| %>
-  <%= user.id %>: <%= user.name %>
-  <%= user.email %>
-<% end %>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">ユーザーID</th>
+      <th scope="col">ユーザー名</th>
+      <th scope="col">メールアドレス</th>
+      <th scope="col">タスク数</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr class="user_table">
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.tasks.count %></td>
+        <td>
+          <%= link_to '詳細', admin_user_path(user), class:"btn btn-outline-primary" %>
+          <%= link_to '編集', edit_admin_user_path(user), class:"btn btn-outline-success" %>
+          <%= link_to '削除', admin_user_path(user), method: :delete, data:{confirm: "本当に削除して良いですか？"}, class: "btn btn-outline-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'ユーザーの新規登録', new_admin_user_path %>

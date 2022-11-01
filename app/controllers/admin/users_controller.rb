@@ -1,9 +1,8 @@
 class Admin::UsersController < ApplicationController
   before_action :if_not_admin
-  before_action :set_user, only: [ :edit, :update, :destroy ]
   
   def index
-    @users = User.all
+    @users = User.select(:id, :name, :email, :admin )
   end
 
   def new
@@ -20,19 +19,36 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @user = User.all
+    @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to admin_users_path, notice:'ユーザー情報を編集しました！'
+    else
+      render :edit
+    end
+  end
+
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.delete
+    redirect_to admin_users_path, notice:'ユーザー情報に関するデータを全て削除しました'
   end
 
   private
+
   def user_params
-    params.require(:user).permit( :name, :email, :password, :password_confirmation, :admin )
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end
 
   def if_not_admin
-    redirect_to root_path unless current_user.admin?
-  end
-
-  def set_user
-    @user = User.find(params[:id])
+    redirect_to root_path, notice:'管理者のみがアクセスできます' unless current_user.admin?
   end
 end
