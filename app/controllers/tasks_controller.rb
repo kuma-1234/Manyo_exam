@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = current_user.tasks.order(created_at: :desc)
     #終了期限で降順にする場合↓
     @tasks = @tasks.reorder(deadline: :asc) if params[:sort_expired]
     #優先順位で降順にする場合↓
@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to task_path(@task), notice: "タスクを作成しました！"
     else
