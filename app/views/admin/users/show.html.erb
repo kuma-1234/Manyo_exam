@@ -1,4 +1,11 @@
 <h1><%= @user.name %>さんのタスク一覧</h1>
+<p>【権限】
+  <% if @user.admin == true %>
+    <a>管理者</a>
+  <% else %>
+    <a>一般ユーザー</a>
+  <% end %>
+</p>
 
 <table class="table">
   <thead class="thead-light">

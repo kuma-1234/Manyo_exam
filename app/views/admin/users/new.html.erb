@@ -24,8 +24,8 @@
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
 
-  <%# <%= f.label :admin %>
-  <%# <%= f.select :admin, User.admin.keys.to_a, include_blank:'選択してください'%> 
+  <%= f.label :admin %>
+  <%= f.select :admin, [[:'管理者', :true], [:'一般ユーザー', :false]], include_blank:'選択してください'%> 
 
   <%= f.submit "Create my account" %>
 <% end %>

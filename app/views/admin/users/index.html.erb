@@ -7,6 +7,7 @@
       <th scope="col">ユーザー名</th>
       <th scope="col">メールアドレス</th>
       <th scope="col">タスク数</th>
+      <th scope="col">権限</th>
       <th></th>
     </tr>
   </thead>
@@ -18,6 +19,13 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.tasks.count %></td>
+        <td>
+            <% if user.admin == true %>
+              <a>管理者</a>
+            <% else %>
+              <a>一般ユーザー</a>
+            <% end %>
+        </td>
         <td>
           <%= link_to '詳細', admin_user_path(user), class:"btn btn-outline-primary" %>
           <%= link_to '編集', edit_admin_user_path(user), class:"btn btn-outline-success" %>
