@@ -103,6 +103,13 @@ RSpec.feature 'ユーザー管理機能',  type: :system do
         click_on 'ユーザー情報の更新'
         expect(page).to have_content 'sample'
       end
+      it 'ユーザーの削除ができる' do
+        visit admin_users_path
+        accept_confirm do
+          all('tbody tr')[1].click_link '削除'
+        end
+        expect(page).not_to have_content 'user1'
+      end
     end
     context '一般ユーザーがログインしている場合' do
       before do
