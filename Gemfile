@@ -19,6 +19,8 @@ group :development, :test do
   gem 'rexml'
   gem 'rspec-rails'
   gem 'pry-rails'
+  gem 'faker'
+  gem 'launchy'
 end
 
 group :development do
@@ -27,8 +29,6 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'faker'
-  gem 'launchy'
 end
 
 group :test do
