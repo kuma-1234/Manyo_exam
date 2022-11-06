@@ -1,0 +1,7 @@
+<%= form_with(model: label, local: true) do |f| %>
+
+  <%= f.label :label_name %>
+  <%= f.text_field :label_name %>
+
+  <%= f.submit '作成する' %>
+<% end %>
