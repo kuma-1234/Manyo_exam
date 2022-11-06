@@ -43,11 +43,8 @@
   </div>
   <div class="input-group">
     <div class="input-group-prepend">
-    <span class="input-group-text">タスクラベル</span>
-      <% Label.all.each do |label| %>
-        <%= form.check_box :label_ids, { multiple: true, checked: @task.labels.find_by(id: label.id).present?, include_hidden: false }, label[:id] %>
-        <label class='badge badge-secondary'><%= label.label_name %></label>
-      <% end %>
+      <span class="input-group-text">タスクラベル</span>
+      <%= f.collection_check_boxes(:label_ids, Label.all, :id, :label_name) %>
     </div>
   </div>
 
