@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :check_user, only: %i[show edit update destroy]
+
 
   def index
     @tasks = current_user.tasks.order(created_at: :desc)
@@ -57,11 +59,18 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:task_title, :task_content, :created_at, :deadline, :status, :priority)
+    params.require(:task).permit(:task_title, :task_content, :created_at, :deadline, :status, :priority, label_ids: [] )
   end
 
   def task_search_params
     params.fetch(:search, {}).permit(:task_title, :status,)
+  end
+
+  def check_user
+    @task = Task.find(params[:id])
+    if current_user.id != @task.user_id
+      redirect_to tasks_path, notice: '他人のページへアクセスはできません'
+    end
   end
 
 end
