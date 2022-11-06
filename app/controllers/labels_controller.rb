@@ -6,17 +6,14 @@ class LabelsController < ApplicationController
 
   def new
     @label = Label.new
-    binding.pry
   end
 
   def create
     @label = current_user.labels.build(params_label)
-    binding.pry
       if @label.save
         redirect_to labels_path, notice: '作成しました！'
       else
         render :new
-        binding.pry
       end
   end
 

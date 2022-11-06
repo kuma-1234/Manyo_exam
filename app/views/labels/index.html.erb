@@ -1,5 +1,25 @@
 <h1>ラベルの一覧</h1>
 
-<% @labels.each do |label| %>
-  <%= label.label_name %>
-<% end %>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">ラベル名</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @labels.each do |label| %>
+      <tr class="task_table">
+        <td><%= label.label_name %></td>
+        <td>
+          <%= link_to '詳細', label_path(label), class:"btn btn-outline-primary" %>
+          <%= link_to '編集', edit_label_path(label), class:"btn btn-outline-success" %>
+          <%= link_to '削除', label_path(label), method: :delete, data:{confirm: "本当に削除して良いですか？"}, class: "btn btn-outline-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to 'ラベルの新規作成', labels_path %></p>
+<p><%= link_to 'タスクの一覧へ戻る', tasks_path %></p>
