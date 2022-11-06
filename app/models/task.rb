@@ -12,8 +12,10 @@ class Task < ApplicationRecord
     return if search_params.blank?
     search_title(search_params[:task_title])
       .search_status(search_params[:status])
+      .search_label(search_params[:label_id])
   end
 
   scope :search_title, -> (task_title) {where("task_title LIKE ?", "%#{task_title}%") if task_title.present?}
   scope :search_status, -> (status) {where(status: status) if status.present?}
+  scope :search_label, -> (label_id) {where(labelings: label_id ) if label_id.present?}
 end

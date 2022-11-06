@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     @tasks = @tasks.reorder(priority: :desc) if params[:sort_priority]
     #タイトルのあいまい検索,ステータス検索
     @search_params = task_search_params
-    @tasks = Task.search(@search_params) if params[:search].present?
+    @tasks = @tasks.joins(:labelings).search(@search_params) if params[:search].present?
     #kaminari gem
     @tasks = @tasks.page(params[:page])
   end
@@ -63,7 +63,7 @@ class TasksController < ApplicationController
   end
 
   def task_search_params
-    params.fetch(:search, {}).permit(:task_title, :status,)
+    params.fetch(:search, {}).permit(:task_title, :status, :label_id )
   end
 
   def check_user
