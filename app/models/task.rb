@@ -3,7 +3,7 @@ class Task < ApplicationRecord
   validates :task_content, presence: true
   belongs_to :user
   has_many :labelings, dependent: :destroy
-  has_many :labeling.labels, through: :labelings, source: :label
+  has_many :labeling_labels, through: :labelings, source: :label
 
   enum status: { 未着手:1, 着手中:2, 完了:3 }
   enum priority: { 低:1, 中:2, 高:3 }
