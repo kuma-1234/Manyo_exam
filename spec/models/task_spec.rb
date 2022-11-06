@@ -18,15 +18,19 @@ RSpec.describe 'タスクモデル機能', type: :model do
 
     context 'タイトル・内容が記載されている場合' do
       it 'バリデーションが通る' do
-        task = Task.new(task_title: '成功', task_content: '成功')
+        user = FactoryBot.create(:user)
+        task = user.tasks.build(task_title: '成功', task_content: '成功', deadline:2022-12-24, priority: "高", status: "着手中", user_id: 1)
         expect(task).to be_valid
       end
     end
   end
 
   describe '検索機能' do
-    let!(:task) { FactoryBot.create(:task, task_title: 'task', status: "着手中") }
-    let!(:task2) { FactoryBot.create(:task2, task_title: 'sample', status: "完了") }
+    before do
+      @user = FactoryBot.create(:user)
+    end
+    let!(:task){ FactoryBot.create( :task, task_title: 'task', status: "着手中", user_id: @user.id) }
+    let!(:task2){ FactoryBot.create( :task2, task_title: 'sample', status: "完了", user_id: @user.id) }
     context 'scopeメソッドであいまい検索をした場合' do
       it "検索キーワードを含むタスクが絞り込まれる" do
         expect(Task.search_title('task')).to include(task)

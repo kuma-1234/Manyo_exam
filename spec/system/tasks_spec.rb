@@ -1,12 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:task) {FactoryBot.create(:task)}
-  let!(:task2) {FactoryBot.create(:task2)}
+  let!(:user){ FactoryBot.create(:user) }
+  let!(:task){ FactoryBot.create(:task,user: user) }
+  let!(:task2){ FactoryBot.create(:task2,user: user) }
+
+  def login
+    visit new_session_path
+    fill_in "session[email]", with: 'user@test.com'
+    fill_in "session[password]", with: 'test123456'
+    click_on 'Log in'
+  end
 
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
+        login
         visit new_task_path
         fill_in 'task[task_title]', with: 'test1'
         fill_in 'task[task_content]', with: 'test1だよ'
@@ -19,6 +28,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '一覧表示機能' do
     before do
+      login
       visit tasks_path
     end
     context '一覧画面に遷移した場合' do
@@ -53,6 +63,10 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '詳細表示機能' do
+    before do
+      login
+      visit tasks_path
+    end
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
         visit task_path(task)
@@ -64,6 +78,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '検索機能' do
     before do
+      login
       visit tasks_path
     end
 

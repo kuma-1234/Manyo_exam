@@ -1,16 +1,11 @@
-<h1 class="display-4">タスクの一覧</h1>
-
-<p><%= notice %></p>
-
-<div class="serch-form">
-  <%= form_with(scope: :search, url:tasks_path, method: :get, local: true) do |f| %>
-    <%= f.label :task_title %>
-    <%= f.text_field :task_title, value: @search_params[:task_title] %>
-    <%= f.label :status %>
-    <%= f.select :status, Task.statuses.keys.to_a , include_blank:'選択してください' ,value: @search_params[:status] %>
-    <%= f.submit "検索"%> 
+<h1><%= @user.name %>さんのタスク一覧</h1>
+<p>【権限】
+  <% if @user.admin == true %>
+    <a>管理者</a>
+  <% else %>
+    <a>一般ユーザー</a>
   <% end %>
-</div>
+</p>
 
 <table class="table">
   <thead class="thead-light">
@@ -25,7 +20,7 @@
   </thead>
 
   <tbody>
-    <% @tasks.each do |task| %>
+    <% @user.tasks.each do |task| %>
       <tr class="task_table">
         <td><%= task.task_title %></td>
         <td><%= task.deadline %></td>
@@ -41,10 +36,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= paginate @tasks %>
-
-<p><%= link_to 'タスクの新規投稿', new_task_path %></p>
-
-<p><%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %></p>
-<p><%= link_to "優先順位でソートする", tasks_path(sort_priority: "true") %></p>
