@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :check_user, only: %i[show edit update destroy]
+  before_action :check_user, only: %i[ edit update destroy]
 
 
   def index
@@ -8,9 +8,9 @@ class TasksController < ApplicationController
     @tasks = @tasks.reorder(deadline: :asc) if params[:sort_expired]
     #優先順位で降順にする場合↓
     @tasks = @tasks.reorder(priority: :desc) if params[:sort_priority]
-    #タイトルのあいまい検索,ステータス検索
+    #タイトルのあいまい検索,ステータス検索,ラベル検索
     @search_params = task_search_params
-    @tasks = @tasks.joins(:labelings).search(@search_params) if params[:search].present?
+    @tasks = @tasks.joins(:labels).search(@search_params) if params[:search].present?
     #kaminari gem
     @tasks = @tasks.page(params[:page])
   end
