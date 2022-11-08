@@ -8,6 +8,8 @@
     <%= f.text_field :task_title, value: @search_params[:task_title] %>
     <%= f.label :status %>
     <%= f.select :status, Task.statuses.keys.to_a , include_blank:'選択してください' ,value: @search_params[:status] %>
+    <%= f.label :label_name %>
+    <%= f.select :label_id, Label.pluck(:label_name, :id), { include_blank: '選択してください'},value: @search_params[:label_id] %>
     <%= f.submit "検索"%> 
   <% end %>
 </div>
@@ -20,6 +22,7 @@
       <th scope="col">ステータス</th>
       <th scope="col">優先順位</th>
       <th scope="col">作成者</th>
+      <th scope="col">ラベル</th>
       <th></th>
     </tr>
   </thead>
@@ -33,6 +36,11 @@
         <td><%= task.priority %></td>
         <td><%= task.user.name %></td>
         <td>
+          <% task.labels.each do |label| %>
+            <%= label.label_name %><a>/</a>
+          <% end %> 
+        </td>
+        <td> 
           <%= link_to '詳細', task_path(task), class:"btn btn-outline-primary" %>
           <%= link_to '編集', edit_task_path(task), class:"btn btn-outline-success" %>
           <%= link_to '削除', task_path(task), method: :delete, data:{confirm: "本当に削除して良いですか？"}, class: "btn btn-outline-danger" %>

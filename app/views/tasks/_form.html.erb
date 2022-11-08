@@ -41,6 +41,12 @@
       <%= f.select :priority, Task.priorities.keys.to_a, include_blank:'選択してください'%>
     </div>
   </div>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">タスクラベル</span>
+      <%= f.collection_check_boxes(:label_ids, Label.all, :id, :label_name) %>
+    </div>
+  </div>
 
   <br>
   

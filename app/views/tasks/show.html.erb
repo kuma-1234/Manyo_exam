@@ -7,6 +7,11 @@
 <p>ステータス：<%= @task.status %></p>
 <p>優先順位：<%= @task.priority %></p>
 <p>作成者：<%= @task.user.name %></p>
+<p>ラベル名：
+  <% @task.labels.each do |label| %>
+    <%= label.label_name %><a>/</a>
+  <% end %>
+</p>
 
 
 <%= link_to '戻る', tasks_path %>

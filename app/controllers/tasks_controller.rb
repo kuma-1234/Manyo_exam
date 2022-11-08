@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :check_user, only: %i[ edit update destroy]
+
 
   def index
     @tasks = current_user.tasks.order(created_at: :desc)
@@ -6,9 +8,9 @@ class TasksController < ApplicationController
     @tasks = @tasks.reorder(deadline: :asc) if params[:sort_expired]
     #優先順位で降順にする場合↓
     @tasks = @tasks.reorder(priority: :desc) if params[:sort_priority]
-    #タイトルのあいまい検索,ステータス検索
+    #タイトルのあいまい検索,ステータス検索,ラベル検索
     @search_params = task_search_params
-    @tasks = Task.search(@search_params) if params[:search].present?
+    @tasks = @tasks.joins(:labels).search(@search_params) if params[:search].present?
     #kaminari gem
     @tasks = @tasks.page(params[:page])
   end
@@ -57,11 +59,18 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:task_title, :task_content, :created_at, :deadline, :status, :priority)
+    params.require(:task).permit(:task_title, :task_content, :created_at, :deadline, :status, :priority, {label_ids: []} )
   end
 
   def task_search_params
-    params.fetch(:search, {}).permit(:task_title, :status,)
+    params.fetch(:search, {}).permit(:task_title, :status, :label_id )
+  end
+
+  def check_user
+    @task = Task.find(params[:id])
+    if current_user.id != @task.user_id
+      redirect_to tasks_path, notice: '他人のページへアクセスはできません'
+    end
   end
 
 end
